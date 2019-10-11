@@ -6,7 +6,7 @@ import './directory.styles.scss';
 
 const Directory = () => {
     
-        const [sections, setSectios] = useState(SECTIONS_DATA);
+        const [sections] = useState(SECTIONS_DATA);
 
         return (
             <div className="directory-menu">
