@@ -48,11 +48,14 @@ const SignIn = () => {
                     value={state.password}
                     handleChange={handleChange}
                     required />
-                <CustomButtom type="submit">Sign In</CustomButtom>
+                <div className='buttons'>
+                    <CustomButtom type="submit">Sign In</CustomButtom>
+                    <CustomButtom onClick={SignInWithGoogle}>Sign In with Google</CustomButtom>
+                </div>
             </form>
         </div>
-            )
-        
-        }
-        
+    )
+
+}
+
 export default SignIn;
