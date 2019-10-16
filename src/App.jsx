@@ -9,6 +9,7 @@ import SignInPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.componen
 import Header from './components/header/header.component';
 
 import './App.css';
+import 'tachyons'
 
 const App = ({ setCurrentUser, currentUser }) => {
 
