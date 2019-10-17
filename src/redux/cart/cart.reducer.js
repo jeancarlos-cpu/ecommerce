@@ -1,4 +1,4 @@
-import { addItemToCart } from './card.utils';
+import { addItemToCart, removeItemFromCart } from './card.utils';
 
 const cartReducer = (state = { hidden: true, cartItems: [] }, action) => {
     switch (action.type) {
@@ -12,11 +12,16 @@ const cartReducer = (state = { hidden: true, cartItems: [] }, action) => {
                 ...state,
                 cartItems: addItemToCart(state.cartItems, action.payload)
             }
-        case "REMOVE_ITEM":
+        case "CLEAR_ITEM":
             return {
                 ...state,
                 cartItems: state.cartItems
                     .filter(item => item.id !== action.payload.id)
+            }
+        case "REMOVE_ITEM":
+            return {
+                ...state,
+                cartItems: removeItemFromCart(state.cartItems, action.payload)
             }
         default:
             return state;
