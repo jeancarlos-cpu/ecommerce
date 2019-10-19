@@ -1,10 +1,15 @@
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import { createStateSyncMiddleware } from 'redux-state-sync';
+import persistedReducer from './root-reducer';
+import { persistStore } from 'redux-persist';
 
-import rootReducer from './root-reducer';
+const config = {
+    blacklist: ['TOGGLE_CART']
+}
 
-const middlewares = [logger];
+const middlewares = [logger, createStateSyncMiddleware(config)];
 
-const store = createStore(rootReducer, applyMiddleware(...middlewares));
+export const store = createStore(persistedReducer, applyMiddleware(...middlewares));
 
-export default store;
+export const persistor = persistStore(store);
