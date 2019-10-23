@@ -8,7 +8,7 @@ const config = {
     blacklist: ['TOGGLE_CART']
 }
 
-const middlewares = [logger, createStateSyncMiddleware(config)];
+const middlewares = [ createStateSyncMiddleware(config)];
 
 export const store = createStore(persistedReducer, applyMiddleware(...middlewares));
 

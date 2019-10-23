@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { auth, createUserProfileDoc } from './firebase/firebase.utils'
 import { connect } from 'react-redux';
+import { selectCurrentUser } from './redux/user/user.selectors';
+import { selectCollectionsForOverview } from './redux/shop/shop.selectors';
 import setCurrentUser from './redux/user/user.actions';
 import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser } from './redux/user/user.selectors.js';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
@@ -16,7 +17,7 @@ import 'tachyons'
 
 const App = ({ setCurrentUser, currentUser }) => {
 
-  useEffect(() => {
+  useEffect( () => {
     const unsub = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDoc(userAuth);
@@ -29,6 +30,8 @@ const App = ({ setCurrentUser, currentUser }) => {
       }
       setCurrentUser(userAuth)
     });
+
+
 
     return () => unsub();
   }, []);
@@ -52,7 +55,8 @@ const App = ({ setCurrentUser, currentUser }) => {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionsForOverview
 })
 
 const mapDispatchToProps = dispatch => ({

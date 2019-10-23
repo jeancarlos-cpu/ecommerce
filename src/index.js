@@ -7,6 +7,8 @@ import { PersistGate } from 'redux-persist/integration/react'
 import './index.css';
 import App from './App.jsx';
 
+// basename={"ecommerce"}
+
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
