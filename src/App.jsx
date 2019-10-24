@@ -17,7 +17,7 @@ import 'tachyons'
 
 const App = ({ setCurrentUser, currentUser }) => {
 
-  useEffect( () => {
+  useEffect(() => {
     const unsub = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDoc(userAuth);
@@ -31,10 +31,10 @@ const App = ({ setCurrentUser, currentUser }) => {
       setCurrentUser(userAuth)
     });
 
-
-
     return () => unsub();
-  }, []);
+  },
+    []
+  );
 
   return (
     <div>

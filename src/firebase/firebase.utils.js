@@ -53,12 +53,29 @@ export const addCollectionAndDocs = async (collectionKey, arrayOfObjects) => {
     const batch = firestore.batch();
     arrayOfObjects.forEach(obj => {
         const newDocRef = collectionRef.doc();
-        console.log(newDocRef)
         batch.set(newDocRef, obj);
     });
 
     return await batch.commit();
 
 };
+
+export const convertSnapToMap = collections => {
+    const collection = collections.docs.map(doc => {
+        const { title, items } = doc.data();
+        return {
+            routeName: encodeURI(title.toLowerCase()),
+            id: doc.id,
+            title,
+            items
+        }
+    });
+
+
+    return collection.reduce((acc, collection) => {
+        acc[collection.title.toLowerCase()] = collection;
+        return acc;
+    }, {});
+}
 
 export default firebase;
