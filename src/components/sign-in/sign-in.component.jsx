@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import FormInput from '../form-input/form-input.component';
 import CustomButtom from '../custom-button/custom-button.component';
 import { SignInWithGoogle, auth } from '../../firebase/firebase.utils';
-
+import { googleSignInStart } from '../../redux/user/user.actions';
 import './sign-in.styles.scss';
 
-const SignIn = () => {
+const SignIn = ({ googleSignInStart }) => {
 
     const initialState = {
         email: '',
@@ -59,12 +60,16 @@ const SignIn = () => {
                     required />
                 <div className='buttons'>
                     <CustomButtom type="submit">Sign In</CustomButtom>
-                    <CustomButtom onClick={SignInWithGoogle}>Sign In with Google</CustomButtom>
+                    <CustomButtom type="button" onClick={googleSignInStart}>Sign In with Google</CustomButtom>
                 </div>
             </form>
         </div>
     )
 
-}
+};
 
-export default SignIn;
+const mapDispatchToProps = dispatch => ({
+    googleSignInStart: () => dispatch(googleSignInStart())
+})
+
+export default connect(null, mapDispatchToProps)(SignIn);

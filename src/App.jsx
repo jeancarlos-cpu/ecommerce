@@ -4,37 +4,18 @@ import { auth, createUserProfileDoc } from './firebase/firebase.utils'
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { selectCollectionsForOverview } from './redux/shop/shop.selectors';
-import setCurrentUser from './redux/user/user.actions';
+import { setCurrentUser } from './redux/user/user.actions';
 import { createStructuredSelector } from 'reselect';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import SignInPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 import Header from './components/header/header.component';
-
 import './App.css';
-import 'tachyons'
+import 'tachyons';
 
-const App = ({ setCurrentUser, currentUser }) => {
+const App = ({ currentUser }) => {
 
-  useEffect(() => {
-    const unsub = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDoc(userAuth);
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
-            id: snapShot.id,
-            ...snapShot.data()
-          });
-        });
-      }
-      setCurrentUser(userAuth)
-    });
-
-    return () => unsub();
-  },
-    []
-  );
 
   return (
     <div>
