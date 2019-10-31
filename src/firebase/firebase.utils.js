@@ -23,6 +23,15 @@ export const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: 'select_account' });
 export const SignInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+        const usubscribe = auth.onAuthStateChanged( userAuth => {
+            usubscribe();
+            resolve(userAuth);
+        }, reject)
+    })
+}
+
 export const createUserProfileDoc = async (userAuth, additionalData) => {
     if (!userAuth) return;
     const userRef = firestore.doc(`users/${userAuth.uid}`);

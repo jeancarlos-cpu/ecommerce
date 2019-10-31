@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { auth, createUserProfileDoc } from './firebase/firebase.utils'
 import { connect } from 'react-redux';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { selectCollectionsForOverview } from './redux/shop/shop.selectors';
-import { setCurrentUser } from './redux/user/user.actions';
+import { checkUserSession } from './redux/user/user.actions';
 import { createStructuredSelector } from 'reselect';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
@@ -14,8 +13,12 @@ import Header from './components/header/header.component';
 import './App.css';
 import 'tachyons';
 
-const App = ({ currentUser }) => {
+const App = ({ currentUser, checkUserSession }) => {
 
+  useEffect(() => {
+    checkUserSession()
+  },
+    []);
 
   return (
     <div>
@@ -41,7 +44,7 @@ const mapStateToProps = createStructuredSelector({
 })
 
 const mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch(setCurrentUser(user))
+  checkUserSession: () => dispatch(checkUserSession())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
